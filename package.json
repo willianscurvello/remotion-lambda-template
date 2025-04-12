@@ -6,12 +6,12 @@
   "scripts": {
     "start": "remotion preview",
     "build": "remotion bundle src/index.tsx --public-dir=public --output=out",
-    "deploy": "remotion lambda deploy",
+    "deploy": "remotion lambda functions deploy",
     "render": "remotion lambda render"
   },
   "dependencies": {
-    "@remotion/lambda": "^4.0.286",
-    "remotion": "^4.0.134"
+    "remotion": "^4.0.134",
+    "@remotion/lambda": "^4.0.286"
   },
   "devDependencies": {
     "@remotion/cli": "^4.0.286"
