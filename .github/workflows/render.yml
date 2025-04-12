@@ -50,6 +50,7 @@ jobs:
           echo "Serve URL: ${{ inputs.serveUrl }}"
 
           npx remotion lambda render ${{ inputs.serveUrl }} ${{ inputs.composition }} out/${{ inputs.videoName }}.mp4 \
+            --region ${{ secrets.REMOTION_AWS_REGION }} \
             --input-props "{\"videoName\":\"${{ inputs.videoName }}\",\"tipo\":\"${{ inputs.tipo }}\",\"duracao\":${{ inputs.duracao }}}"
         env:
           REMOTION_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
