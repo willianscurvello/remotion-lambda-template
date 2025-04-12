@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -20,8 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Remotion CLI
+        run: npm install -g remotion
+
       - name: Deploy to Remotion Lambda
-        run: npx remotion lambda deploy
+        run: remotion lambda deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
