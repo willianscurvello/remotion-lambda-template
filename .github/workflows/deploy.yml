@@ -4,37 +4,24 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      videoName:
-        description: 'Nome do vídeo'
-        required: true
-        type: string
-      tipo:
-        description: 'Tipo de vídeo'
-        required: true
-        type: string
 
 jobs:
-  deploy:
+  render:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
 
       - name: Install dependencies
         run: npm install
 
       - name: Deploy to Remotion Lambda
-        run: |
-          echo "Renderizando vídeo: ${{ github.event.inputs.videoName }}"
-          echo "Tipo: ${{ github.event.inputs.tipo }}"
-          npx remotion lambda functions deploy
+        run: npm run deploy
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          REMOTION_AWS_ACCESS_KEY_ID: ${{ secrets.REMOTION_AWS_ACCESS_KEY_ID }}
+          REMOTION_AWS_SECRET_ACCESS_KEY: ${{ secrets.REMOTION_AWS_SECRET_ACCESS_KEY }}
+          REMOTION_AWS_REGION: us-east-1
