@@ -40,9 +40,23 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Deploy Remotion Lambda functions
+        run: npx remotion lambda functions deploy
+        env:
+          REMOTION_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          REMOTION_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          REMOTION_AWS_REGION: ${{ secrets.REMOTION_AWS_REGION }}
+          REMOTION_AWS_BUCKET_NAME: ${{ secrets.REMOTION_AWS_BUCKET_NAME }}
+
       - name: Render video on Lambda
         run: |
           echo "🎬 Iniciando renderização"
+          echo "Nome: ${{ inputs.videoName }}"
+          echo "Tipo: ${{ inputs.tipo }}"
+          echo "Duração: ${{ inputs.duracao }}"
+          echo "Composição: ${{ inputs.composition }}"
+          echo "Serve URL: ${{ inputs.serveUrl }}"
+
           npx remotion lambda render ${{ inputs.serveUrl }} ${{ inputs.composition }} out/${{ inputs.videoName }}.mp4 \
             --input-props "{\"videoName\":\"${{ inputs.videoName }}\",\"tipo\":\"${{ inputs.tipo }}\",\"duracao\":${{ inputs.duracao }}}"
         env:
@@ -50,5 +64,3 @@ jobs:
           REMOTION_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           REMOTION_AWS_REGION: ${{ secrets.REMOTION_AWS_REGION }}
           REMOTION_AWS_BUCKET_NAME: ${{ secrets.REMOTION_AWS_BUCKET_NAME }}
-
-
