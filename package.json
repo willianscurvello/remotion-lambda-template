@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "remotion preview",
-    "render": "remotion lambda render",
-    "deploy": "remotion lambda deploy",
-    "build": "remotion lambda site out"
+  "start": "remotion preview",
+  "build": "remotion bundle src/index.tsx --public-dir=public --output=out",
+  "deploy": "remotion lambda deploy",
+  "render": "remotion lambda render"
+}
+
   },
   "dependencies": {
     "@remotion/lambda": "^4.0.286",
