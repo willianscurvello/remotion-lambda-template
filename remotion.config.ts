@@ -1,5 +1,4 @@
-import { Config } from '@remotion/cli/config';
+import { Config } from "@remotion/cli/config";
 
-Config.setBundlingConfig({
-  entryPoint: 'src/index.tsx',
-});
+Config.setImageFormat("jpeg");
+Config.setConcurrency(1);
