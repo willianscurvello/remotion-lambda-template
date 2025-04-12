@@ -2,6 +2,7 @@
   "name": "remotion-lambda-template",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "remotion preview",
     "build": "remotion bundle src/index.tsx --public-dir=public --output=out",
@@ -9,10 +10,10 @@
     "render": "remotion lambda render"
   },
   "dependencies": {
-    "remotion": "4.0.286",
-    "@remotion/lambda": "4.0.286"
+    "@remotion/lambda": "^4.0.286",
+    "remotion": "^4.0.134"
   },
   "devDependencies": {
-    "@remotion/cli": "4.0.286"
+    "@remotion/cli": "^4.0.286"
   }
 }
