@@ -52,5 +52,8 @@ jobs:
           npx remotion lambda render ${{ inputs.serveUrl }} ${{ inputs.composition }} out/${{ inputs.videoName }}.mp4 \
             --input-props "{\"videoName\":\"${{ inputs.videoName }}\",\"tipo\":\"${{ inputs.tipo }}\",\"duracao\":${{ inputs.duracao }}}"
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          REMOTION_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          REMOTION_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          REMOTION_AWS_REGION: ${{ secrets.REMOTION_AWS_REGION }}
+          REMOTION_AWS_BUCKET_NAME: ${{ secrets.REMOTION_AWS_BUCKET_NAME }}
+
