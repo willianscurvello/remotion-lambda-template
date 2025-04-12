@@ -3,21 +3,23 @@ name: Render Remotion Video
 on:
   workflow_dispatch:
     inputs:
+      composition:
+        description: "Composition ID"
+        required: true
+        default: "video"
       videoName:
-        description: 'Nome do vídeo'
+        description: "Nome do vídeo"
         required: true
-        type: string
       tipo:
-        description: 'Tipo de render'
+        description: "Tipo do vídeo"
         required: true
-        type: string
       duracao:
-        description: 'Duração em segundos'
+        description: "Duração do vídeo (em segundos)"
         required: true
-        type: number
 
 jobs:
   render:
+    name: Render video on Lambda
     runs-on: ubuntu-latest
 
     steps:
@@ -34,19 +36,16 @@ jobs:
 
       - name: Render video on Lambda
         run: |
-          echo "🎥 Iniciando renderização"
+          echo "🟣 Iniciando renderização"
           echo "Nome: ${{ github.event.inputs.videoName }}"
           echo "Tipo: ${{ github.event.inputs.tipo }}"
-          echo "Duração: ${{ github.event.inputs.duracao }}s"
-          npx remotion lambda render src/index.tsx \
-            --composition=main \
-            --codec=h264 \
-            --image-format=jpeg \
-            --props='{
-              "videoName": "${{ github.event.inputs.videoName }}",
-              "tipo": "${{ github.event.inputs.tipo }}",
-              "duracao": ${{ github.event.inputs.duracao }}
-            }'
+          echo "Duração: ${{ github.event.inputs.duracao }}"
+          echo "Composition: ${{ github.event.inputs.composition }}"
+
+          npx remotion lambda render \
+            --serve-url https://your-deploy-url.com \
+            --composition ${{ github.event.inputs.composition }} \
+            --props "{\"videoName\":\"${{ github.event.inputs.videoName }}\",\"tipo\":\"${{ github.event.inputs.tipo }}\",\"duracao\":${{ github.event.inputs.duracao }}}"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
