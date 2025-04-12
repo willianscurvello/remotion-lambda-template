@@ -1,7 +1,6 @@
-
 {
   "name": "remotion-lambda-template",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "remotion preview",
@@ -10,7 +9,10 @@
     "render": "remotion lambda render"
   },
   "dependencies": {
+    "@remotion/lambda": "^4.0.286",
     "remotion": "^4.0.134"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@remotion/cli": "^4.0.286"
+  }
 }
