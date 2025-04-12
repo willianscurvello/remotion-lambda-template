@@ -4,48 +4,39 @@ on:
   workflow_dispatch:
     inputs:
       composition:
-        description: "Composition ID"
+        description: 'Composition ID'
         required: true
-        default: "video"
       videoName:
-        description: "Nome do vídeo"
+        description: 'Nome do vídeo'
         required: true
       tipo:
-        description: "Tipo do vídeo"
+        description: 'Tipo do vídeo'
         required: true
       duracao:
-        description: "Duração do vídeo (em segundos)"
+        description: 'Duração'
+        required: true
+      serveUrl:
+        description: 'URL de onde o projeto está hospedado'
         required: true
 
 jobs:
   render:
-    name: Render video on Lambda
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Render video on Lambda
+      - name: Render video
         run: |
-          echo "🟣 Iniciando renderização"
+          echo "🎬 Iniciando renderização"
           echo "Nome: ${{ github.event.inputs.videoName }}"
           echo "Tipo: ${{ github.event.inputs.tipo }}"
           echo "Duração: ${{ github.event.inputs.duracao }}"
           echo "Composition: ${{ github.event.inputs.composition }}"
+          echo "Serve URL: ${{ github.event.inputs.serveUrl }}"
 
           npx remotion lambda render \
-            --serve-url https://your-deploy-url.com \
-            --composition ${{ github.event.inputs.composition }} \
-            --props "{\"videoName\":\"${{ github.event.inputs.videoName }}\",\"tipo\":\"${{ github.event.inputs.tipo }}\",\"duracao\":${{ github.event.inputs.duracao }}}"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            "${{ github.event.inputs.serveUrl }}" \
+            "${{ github.event.inputs.composition }}" \
+            --input-props='{
+              "videoName": "${{ github.event.inputs.videoName }}",
+              "tipo": "${{ github.event.inputs.tipo }}",
+              "duracao": ${{ github.event.inputs.duracao }}
+            }'
