@@ -5,6 +5,15 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      videoName:
+        description: 'Nome do vídeo'
+        required: true
+        type: string
+      tipo:
+        description: 'Tipo de vídeo'
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -22,7 +31,10 @@ jobs:
         run: npm install
 
       - name: Deploy to Remotion Lambda
-        run: npx remotion lambda functions deploy
+        run: |
+          echo "Renderizando vídeo: ${{ github.event.inputs.videoName }}"
+          echo "Tipo: ${{ github.event.inputs.tipo }}"
+          npx remotion lambda functions deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
