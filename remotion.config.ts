@@ -1,3 +1,7 @@
 import { Config } from "@remotion/cli/config";
 
-Config.setImageFormat("jpeg");
+// Correto para vídeos:
+Config.setVideoImageFormat("jpeg");
+
+// (Opcional) Para imagens estáticas:
+// Config.setStillImageFormat("png");
