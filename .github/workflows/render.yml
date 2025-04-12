@@ -15,6 +15,14 @@ on:
         description: 'Duração (em segundos)'
         required: true
         default: '30'
+      serveUrl:
+        description: 'URL do projeto Remotion'
+        required: true
+        default: 'https://remotion-edit.vercel.app'
+      composition:
+        description: 'ID da composição (ex: MeuVideo)'
+        required: true
+        default: 'MeuVideo'
 
 jobs:
   render:
@@ -38,10 +46,10 @@ jobs:
           echo "Nome: ${{ inputs.videoName }}"
           echo "Tipo: ${{ inputs.tipo }}"
           echo "Duração: ${{ inputs.duracao }}"
-          echo "Composição: MeuVideo"
-          echo "Serve URL: https://remotion-edit.vercel.app/"
+          echo "Composição: ${{ inputs.composition }}"
+          echo "Serve URL: ${{ inputs.serveUrl }}"
 
-          npx remotion lambda render https://remotion-edit.vercel.app MeuVideo out/${{ inputs.videoName }}.mp4 \
+          npx remotion lambda render ${{ inputs.serveUrl }} ${{ inputs.composition }} out/${{ inputs.videoName }}.mp4 \
             --input-props "{\"videoName\":\"${{ inputs.videoName }}\",\"tipo\":\"${{ inputs.tipo }}\",\"duracao\":${{ inputs.duracao }}}"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
