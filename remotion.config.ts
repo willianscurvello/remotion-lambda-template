@@ -1,7 +1,6 @@
-import { Config } from '@remotion/cli/config';
+// remotion.config.ts
+import { Config } from "@remotion/cli/config";
 
-// Correto para vídeos:
-Config.setVideoImageFormat("jpeg");
-
-// (Opcional) Para imagens estáticas:
-// Config.setStillImageFormat("png");
+Config.setCodec("h264");
+Config.setImageFormat("jpeg"); // ou png, se preferir
+Config.setTimeoutInMilliseconds(120000); // opcional
