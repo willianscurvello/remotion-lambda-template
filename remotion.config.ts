@@ -1,4 +1,4 @@
-import { Config } from "@remotion/cli/config";
+import { Config } from '@remotion/cli/config';
 
 // Correto para vídeos:
 Config.setVideoImageFormat("jpeg");
