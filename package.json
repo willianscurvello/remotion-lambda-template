@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "remotion preview",
-    "build": "remotion build",
+    "build": "remotion bundle src/index.ts --public-dir=public --output=out",
     "deploy": "remotion lambda deploy",
     "render": "remotion lambda render"
   },
